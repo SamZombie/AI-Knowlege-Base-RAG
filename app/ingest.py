@@ -68,6 +68,6 @@ def store_embeddings(docs : list[Document], collection_name : str = "default") -
     )
     return True
 
-docs = load_documents()
-chunks = split_documents(docs)
-store_embeddings(chunks)
+# docs = load_documents()
+# chunks = split_documents(docs)
+# store_embeddings(chunks)

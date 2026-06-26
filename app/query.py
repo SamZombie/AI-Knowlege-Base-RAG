@@ -37,10 +37,7 @@ def generate_prompt(user_query : str, context : list[str]) -> str:
     
     Answer:"""
 
-def generate_answer(query : str, collection_name : str = "default") -> GenerateResponse:
-    query_vector = embed_query(query)
-    context = search_qdrant(query_vector, collection_name)
-    context_content = [r.payload["content"] for r in context.points]
+def generate_answer(query : str, context_content : list[str]) -> GenerateResponse:
     prompt = generate_prompt(query, context_content)
     response = generate(
         model= ollama_model,
@@ -48,5 +45,9 @@ def generate_answer(query : str, collection_name : str = "default") -> GenerateR
     )
     return response
     
-answer = generate_answer("How should organizations manage AI risk according to NIST?")
-print(answer.response)
+# query = "How should organizations manage AI risk according to NIST?"
+# query_vector = embed_query(query)
+# context = search_qdrant(query_vector)
+# context_content = [r.payload["content"] for r in context.points]
+# answer = generate_answer(query)
+# print(answer.response)
