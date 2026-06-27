@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import argparse
 from langchain_core.documents import Document 
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -66,7 +67,7 @@ def split_documents(docs: list[Document]) -> list[Document]:
     return splitter.split_documents(docs)
 
 
-def store_embeddings(docs: list[Document], collection_name: str = "default") -> bool:
+def store_embeddings(docs: list[Document], refresh: bool = False, collection_name: str = "default") -> bool:
     """
     Embeds a list of document chunks and stores them in a Qdrant collection.
 
@@ -78,6 +79,7 @@ def store_embeddings(docs: list[Document], collection_name: str = "default") -> 
 
     Args:
         docs (list[Document]): A list of chunked LangChain Document objects to embed and store.
+        refresh (bool): If you update the documents and want to recreate the qdrant collection
         collection_name (str): The name of the Qdrant collection to store vectors in.
                                Defaults to "default".
 
@@ -89,11 +91,15 @@ def store_embeddings(docs: list[Document], collection_name: str = "default") -> 
     vector = VectorParams(size=vector_dimensions, distance=Distance.COSINE)
     embeded_docs = hf.embed_documents([doc.page_content for doc in docs])
 
+    if client.collection_exists(collection_name= collection_name) and refresh:
+        client.delete_collection(collection_name= collection_name)
+
     if not client.collection_exists(collection_name= collection_name):
         client.create_collection(
             collection_name= collection_name,
             vectors_config= vector
         )
+
     points = []
     for idx, (embed, doc) in enumerate(zip(embeded_docs, docs)):
         payload = {"filename": os.path.basename(doc.metadata["source"]),
@@ -114,6 +120,11 @@ def store_embeddings(docs: list[Document], collection_name: str = "default") -> 
     )
     return True
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--refresh", action="store_true",
+                    help="refresh qdrant collection")
+args = parser.parse_args()
+
 docs = load_documents()
 chunks = split_documents(docs)
-store_embeddings(chunks)
+store_embeddings(chunks, args.refresh)

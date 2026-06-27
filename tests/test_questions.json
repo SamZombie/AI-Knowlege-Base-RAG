@@ -1,0 +1,75 @@
+[
+  {
+    "question": "According to OMB Memorandum M-25-21, within how many days of its issuance must each agency retain or designate a Chief AI Officer (CAIO)?",
+    "expected_answer": "60 days",
+    "expected_sources": [
+      "M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf"
+    ]
+  },
+  {
+    "question": "How does GSA's tiered AI use-case structure categorize its Login.gov face-matching technology, and why does it receive heightened scrutiny?",
+    "expected_answer": "Login.gov face-matching is a Tier 3 (integration) use case because it is embedded directly into an existing enterprise platform. It receives heightened scrutiny because it involves biometric facial matching for public identity verification, raising significant privacy and civil rights concerns that require additional testing, human review, and continuous monitoring.",
+    "expected_sources": [
+      "AI_strategies_and_compliance_plan___GSA.pdf"
+    ]
+  },
+  {
+    "question": "Under M-25-21, what is the formal definition of 'High-Impact AI'?",
+    "expected_answer": "High-Impact AI is AI whose output serves as a principal basis for decisions or actions with legal, material, binding, or significant effect on: (1) civil rights, civil liberties, or privacy; (2) access to education, housing, insurance, credit, or employment; (3) access to critical government resources or services; (4) human health and safety; (5) critical infrastructure or public safety; or (6) strategic assets or resources, including high-value property and classified information.",
+    "expected_sources": [
+      "M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf",
+      "AI_strategies_and_compliance_plan___GSA.pdf"
+    ]
+  },
+  {
+    "question": "What are the four core functions of the NIST AI Risk Management Framework (AI RMF 1.0)?",
+    "expected_answer": "The four core functions are GOVERN, MAP, MEASURE, and MANAGE. GOVERN is a cross-cutting function infused throughout the others; MAP establishes context and identifies risks; MEASURE assesses and tracks risks using quantitative or qualitative methods; and MANAGE prioritizes and acts on risks based on projected impact.",
+    "expected_sources": [
+      "NIST_AI_100-1.pdf",
+      "AI_RMF_Playbook.pdf"
+    ]
+  },
+  {
+    "question": "What is GSA's 'EDGE Board,' and who chairs and co-chairs it?",
+    "expected_answer": "The EDGE Board (Evidence-Based Data Governance Executive Board) is GSA's primary AI governance body, responsible for overseeing AI and data governance activities, setting the overall vision and risk tolerance for AI, and ensuring alignment with GSA's mission. It is chaired by the GSA Deputy Administrator and co-chaired by the Chief Data Officer (CDO)/Chief AI Officer (CAIO).",
+    "expected_sources": [
+      "AI_strategies_and_compliance_plan___GSA.pdf"
+    ]
+  },
+  {
+    "question": "According to the NIST AI RMF, what is the difference between 'explainability' and 'interpretability' in the context of trustworthy AI?",
+    "expected_answer": "Explainability refers to a representation of the mechanisms underlying an AI system's operation — the 'how' a decision was made. Interpretability refers to the meaning of the AI system's output in the context of its designed functional purpose — the 'why' a decision was made and what it means to the user. Together they help operators, overseers, and users gain deeper insight into system functionality and trustworthiness.",
+    "expected_sources": [
+      "NIST_AI_100-1.pdf"
+    ]
+  },
+  {
+    "question": "Under M-25-21, what conditions must be met for a pilot program to be exempt from the minimum risk management practices for high-impact AI?",
+    "expected_answer": "A pilot program is exempt if: (A) it is of limited scale and duration; (B) the agency CAIO has certified the pilot may proceed and that certification is centrally tracked; (C) where possible, individuals who may interact with the AI can opt in and out with sufficient notice; and (D) minimum risk management practices are applied where practicable.",
+    "expected_sources": [
+      "M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf"
+    ]
+  },
+  {
+    "question": "What is GSA's 'USAi' platform and what two access modes does it offer?",
+    "expected_answer": "USAi is a government-wide AI platform and shared service launched by GSA that provides federal agencies with a FedRAMP-authorized environment to test, adopt, and scale AI capabilities. It offers two access modes: a chatbot interface for direct user interaction, and API access for custom programmatic integrations within agency applications.",
+    "expected_sources": [
+      "AI_strategies_and_compliance_plan___GSA.pdf"
+    ]
+  },
+  {
+    "question": "According to the NIST AI RMF, what are the three major categories of AI bias that NIST has identified?",
+    "expected_answer": "The three major categories are: (1) Systemic bias — present in AI datasets, organizational norms, practices, and processes across the AI lifecycle, and broader society; (2) Computational and statistical bias — present in datasets and algorithmic processes, often from non-representative samples; and (3) Human-cognitive bias — relating to how an individual or group perceives AI system information to make decisions or fill in missing information.",
+    "expected_sources": [
+      "NIST_AI_100-1.pdf"
+    ]
+  },
+  {
+    "question": "M-25-21 requires CFO Act agencies to develop and publicly release an AI Strategy within 180 days. What are at least four of the seven maturity-planning areas that this strategy must address at minimum?",
+    "expected_answer": "The strategy must address plans or processes to: (A) develop AI-enabling infrastructure across the AI lifecycle; (B) ensure access to quality data for AI and data traceability; (C) develop enterprise capacity for AI innovation; (D) provide AI tools and capacity to support R&D efforts; (E) develop the necessary operations, governance, and infrastructure to manage AI risks including information security and privacy; (F) recruit, hire, train, retain, and empower an AI-ready workforce; and (G) identify, track, and facilitate future AI investment or procurement. Any four of these seven is a correct answer.",
+    "expected_sources": [
+      "M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf",
+      "AI_strategies_and_compliance_plan___GSA.pdf"
+    ]
+  }
+]
