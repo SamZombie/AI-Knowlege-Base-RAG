@@ -111,3 +111,6 @@ full_test_case_dict = process_questions(test_dict)
 metrics = calculate_metrics(full_test_case_dict)
 print(f"Average Retrieval Score: {metrics['avg_retrieval_score']:.2f}")
 print(f"Average Answer Score: {metrics['avg_answer_score']:.2f}")
+dump_file = Path(__file__).resolve().parent / "eval_results.json"
+with open(dump_file, "w") as file:
+    json.dump(metrics, file)
