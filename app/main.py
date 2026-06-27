@@ -1,14 +1,14 @@
-import os
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from pydantic import BaseModel
 from app.query import generate_answer, search_qdrant, embed_query
 
 app = FastAPI()
 
+
 class Query(BaseModel):
     """Represents an incoming user query request body."""
     body: str
+
 
 class Source(BaseModel):
     """Represents a single document source citation returned with an answer."""
@@ -16,6 +16,7 @@ class Source(BaseModel):
     title: str
     page: int
     author: str
+
 
 class Answer(BaseModel):
     """Represents the full API response containing the generated answer and its sources."""
@@ -48,22 +49,22 @@ async def ask_query(query: Query, collection_name: str = "default") -> Answer:
     answer_str = generate_answer(query.body, context_content).response
     sources = []
     seen = set()
-    
+
     for r in context.points:
         id = (r.payload["filename"], r.payload["page"])
 
         if id not in seen:
             seen.add(id)
-            sources.append( Source(
-            filepath= r.payload["filename"],
-            title= r.payload["title"],
-            page= r.payload["page"],
-            author= r.payload["author"]
+            sources.append(Source(
+                filepath=r.payload["filename"],
+                title=r.payload["title"],
+                page=r.payload["page"],
+                author=r.payload["author"]
             ))
-        
+
     answer = Answer(
-        answer= answer_str,
-        sources= sources
+        answer=answer_str,
+        sources=sources
     )
-    
+
     return answer

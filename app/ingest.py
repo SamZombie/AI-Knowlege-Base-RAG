@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 import argparse
-from langchain_core.documents import Document 
+from langchain_core.documents import Document
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -59,15 +59,18 @@ def split_documents(docs: list[Document]) -> list[Document]:
 
     Returns:
         list[Document]: A list of chunked Document objects ready for embedding.
-    """    
+    """
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size= int(chunk_size),
-        chunk_overlap= int(chunk_overlap)
+        chunk_size=int(chunk_size),
+        chunk_overlap=int(chunk_overlap)
     )
     return splitter.split_documents(docs)
 
 
-def store_embeddings(docs: list[Document], refresh: bool = False, collection_name: str = "default") -> bool:
+def store_embeddings(
+        docs: list[Document],
+        refresh: bool = False,
+        collection_name: str = "default") -> bool:
     """
     Embeds a list of document chunks and stores them in a Qdrant collection.
 
@@ -87,38 +90,39 @@ def store_embeddings(docs: list[Document], refresh: bool = False, collection_nam
         bool: True if embeddings were successfully stored.
     """
     client = QdrantClient(host=qdrant_host, port=qdrant_post)
-    hf = HuggingFaceEmbeddings(model_name= embedding_model)
+    hf = HuggingFaceEmbeddings(model_name=embedding_model)
     vector = VectorParams(size=vector_dimensions, distance=Distance.COSINE)
     embeded_docs = hf.embed_documents([doc.page_content for doc in docs])
 
-    if client.collection_exists(collection_name= collection_name) and refresh:
-        client.delete_collection(collection_name= collection_name)
+    if client.collection_exists(collection_name=collection_name) and refresh:
+        client.delete_collection(collection_name=collection_name)
 
-    if not client.collection_exists(collection_name= collection_name):
+    if not client.collection_exists(collection_name=collection_name):
         client.create_collection(
-            collection_name= collection_name,
-            vectors_config= vector
+            collection_name=collection_name,
+            vectors_config=vector
         )
 
     points = []
     for idx, (embed, doc) in enumerate(zip(embeded_docs, docs)):
         payload = {"filename": os.path.basename(doc.metadata["source"]),
                    "page": doc.metadata["page"],
-                    "title": doc.metadata.get("title", "Unknown"),
+                   "title": doc.metadata.get("title", "Unknown"),
                    "author": doc.metadata.get("author", "Unknown"),
                    "content": doc.page_content
                    }
         point = PointStruct(
-            id= idx,
-            vector= embed,
-            payload= payload
+            id=idx,
+            vector=embed,
+            payload=payload
         )
         points.append(point)
     client.upsert(
-        collection_name= collection_name,
-        points= points
+        collection_name=collection_name,
+        points=points
     )
     return True
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--refresh", action="store_true",

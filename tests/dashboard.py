@@ -36,12 +36,23 @@ st.divider()
 
 st.subheader("Question Explorer")
 
-selected_question = st.selectbox("Select a question", options=[entry["question"] for entry in question_summary])
+selected_question = st.selectbox(
+    "Select a question", options=[
+        entry["question"] for entry in question_summary])
 
-selected = next(entry for entry in question_summary if entry["question"] == selected_question)
+selected = next(
+    entry for entry in question_summary if entry["question"] == selected_question)
 
-st.text_area("Expected Answer", value=selected["expected_answer"], disabled=True, height=150)
-st.text_area("Generated Answer", value=selected["generated_answer"], disabled=True, height=150)
+st.text_area(
+    "Expected Answer",
+    value=selected["expected_answer"],
+    disabled=True,
+    height=150)
+st.text_area(
+    "Generated Answer",
+    value=selected["generated_answer"],
+    disabled=True,
+    height=150)
 
 col1, col2 = st.columns(2)
 with col1:

@@ -3,33 +3,36 @@ from pathlib import Path
 import requests
 import os
 from dotenv import load_dotenv
-from ollama import GenerateResponse, Client
+from ollama import Client
 
 load_dotenv()
 api_host = os.getenv("API_HOST")
 api_port = os.getenv("API_PORT")
 ollama_model = os.getenv("OLLAMA_MODEL")
-ollama_base_url = os.getenv("OLLAMA_BASE_URL") 
+ollama_base_url = os.getenv("OLLAMA_BASE_URL")
 
-ollama_client = Client(host= ollama_base_url)
+ollama_client = Client(host=ollama_base_url)
 
-def create_test_dict(filename : str) -> list[dict]:
+
+def create_test_dict(filename: str) -> list[dict]:
     test_case_list = []
     with open(filename, "r") as file:
         data = json.load(file)
     for entry in data:
         test_case = {
-            "question" : entry["question"],
-            "expected_answer" : entry["expected_answer"],
-            "generated_answer" : "",
-            "expected_sources" : entry["expected_sources"],
-            "retrieved_sources" : []
+            "question": entry["question"],
+            "expected_answer": entry["expected_answer"],
+            "generated_answer": "",
+            "expected_sources": entry["expected_sources"],
+            "retrieved_sources": []
         }
         test_case_list.append(test_case)
     return test_case_list
 
 
-def process_questions(test_case_list: list[dict], collection_name: str = "default") -> list[dict]:
+def process_questions(
+        test_case_list: list[dict],
+        collection_name: str = "default") -> list[dict]:
     base_url = f"http://{api_host}:{api_port}"
     for test_case in test_case_list:
         query = test_case["question"]
@@ -72,10 +75,10 @@ Generated Answer:
 {generated_answer}
 
 Score:"""
-    
+
     response = ollama_client.generate(
-        model= ollama_model,
-        prompt= prompt
+        model=ollama_model,
+        prompt=prompt
     )
     try:
         return float(response.response.strip())
@@ -83,11 +86,11 @@ Score:"""
         return 0.0
 
 
-def calculate_metrics (test_case_list: list[dict]) -> dict:
-    summary_dict={
-        "avg_retrieval_score" : 0,
-        "avg_answer_score" : 0,
-        "question_summary" : []
+def calculate_metrics(test_case_list: list[dict]) -> dict:
+    summary_dict = {
+        "avg_retrieval_score": 0,
+        "avg_answer_score": 0,
+        "question_summary": []
     }
     tot_retrieval_score = 0
     tot_answer_score = 0

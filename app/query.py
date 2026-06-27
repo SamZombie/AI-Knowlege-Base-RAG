@@ -10,10 +10,10 @@ embedding_model = os.getenv("EMBEDDING_MODEL")
 qdrant_host = os.getenv("QDRANT_HOST")
 qdrant_post = os.getenv("QDRANT_PORT")
 ollama_model = os.getenv("OLLAMA_MODEL")
-ollama_base_url = os.getenv("OLLAMA_BASE_URL") 
+ollama_base_url = os.getenv("OLLAMA_BASE_URL")
 
 qdrant_client = QdrantClient(host=qdrant_host, port=qdrant_post)
-ollama_client = Client(host= ollama_base_url)
+ollama_client = Client(host=ollama_base_url)
 
 
 def embed_query(query: str) -> list[float]:
@@ -31,7 +31,7 @@ def embed_query(query: str) -> list[float]:
     Returns:
         list[float]: A vector embedding representing the semantic meaning of the query.
     """
-    hf = HuggingFaceEmbeddings(model_name= embedding_model)
+    hf = HuggingFaceEmbeddings(model_name=embedding_model)
     return hf.embed_query(query)
 
 
@@ -56,12 +56,12 @@ def search_qdrant(query_vector: list[float], collection_name: str = "default"):
         QueryResponse: A Qdrant response object containing the top-k matching points
         with their vectors, scores, and payloads.
     """
-    if not qdrant_client.collection_exists(collection_name= collection_name):
+    if not qdrant_client.collection_exists(collection_name=collection_name):
         raise ValueError("Collection name does not exist.")
     return qdrant_client.query_points(
-        collection_name= collection_name,
-        query= query_vector,
-        limit= int(top_k_results)
+        collection_name=collection_name,
+        query=query_vector,
+        limit=int(top_k_results)
     )
 
 
@@ -81,20 +81,22 @@ def generate_prompt(user_query: str, context: list[str]) -> str:
 
     Returns:
         str: A fully formatted prompt string ready to be sent to the LLM.
-    """    
+    """
     context_str = "\n\n".join(context)
     return f"""You are a helpful assistant. Answer the question based only on the context provided below. If the answer is not in the context, say "I don't know."
-    
+
     Context:
-    {context_str} 
-    
+    {context_str}
+
     Question:
-    {user_query} 
-    
+    {user_query}
+
     Answer:"""
 
 
-def generate_answer(query: str, context_content: list[str]) -> GenerateResponse:
+def generate_answer(
+        query: str,
+        context_content: list[str]) -> GenerateResponse:
     """
     Generates a natural language answer from a query and retrieved context.
 
@@ -113,7 +115,7 @@ def generate_answer(query: str, context_content: list[str]) -> GenerateResponse:
     """
     prompt = generate_prompt(query, context_content)
     response = ollama_client.generate(
-        model= ollama_model,
-        prompt= prompt
+        model=ollama_model,
+        prompt=prompt
     )
     return response
