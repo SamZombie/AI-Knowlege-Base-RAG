@@ -124,11 +124,12 @@ def store_embeddings(
     return True
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--refresh", action="store_true",
-                    help="refresh qdrant collection")
-args = parser.parse_args()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--refresh", action="store_true",
+                        help="refresh qdrant collection")
+    args = parser.parse_args()
 
-docs = load_documents()
-chunks = split_documents(docs)
-store_embeddings(chunks, args.refresh)
+    docs = load_documents()
+    chunks = split_documents(docs)
+    store_embeddings(chunks, args.refresh)
