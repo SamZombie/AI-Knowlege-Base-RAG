@@ -14,7 +14,7 @@ A **production-style Retrieval-Augmented Generation (RAG) system** for querying 
 
 ## Demo
 
-[![Watch the demo](https://cdn.loom.com/sessions/thumbnails/d87cc14f56f5441f8dd59907b70b625a-with-play.gif)](https://www.loom.com/share/d87cc14f56f5441f8dd59907b70b625a)
+[▶ Watch Demo on Loom](https://www.loom.com/share/d87cc14f56f5441f8dd59907b70b625a)
 
 **Query:**
 ```json
