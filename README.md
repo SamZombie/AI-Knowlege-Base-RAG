@@ -1,6 +1,6 @@
-# 🔍 AI Knowledge Base RAG
+# AI Knowledge Base RAG
 
-![CI](https://github.com/SamZombie/AI-Knowlege-Base-RAG/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/SamZombie/AI-Knowledge-Base-RAG/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.138-009688?logo=fastapi)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
@@ -13,6 +13,8 @@ A **production-style Retrieval-Augmented Generation (RAG) system** for querying 
 ---
 
 ## Demo
+
+[![Watch the demo](https://cdn.loom.com/sessions/thumbnails/d87cc14f56f5441f8dd59907b70b625a-with-play.gif)](https://www.loom.com/share/d87cc14f56f5441f8dd59907b70b625a)
 
 **Query:**
 ```json
@@ -102,8 +104,8 @@ FastAPI REST API → JSON + Citations
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/SamZombie/AI-Knowlege-Base-RAG.git
-cd AI-Knowlege-Base-RAG
+git clone https://github.com/SamZombie/AI-Knowledge-Base-RAG.git
+cd AI-Knowledge-Base-RAG
 
 # 2. Pull the LLM
 ollama pull mistral
